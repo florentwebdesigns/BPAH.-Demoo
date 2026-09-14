@@ -623,18 +623,19 @@
         <li>Licensed, insured local professionals</li>
       </ul>
     </div>
-    <form class="booking-form reveal" id="booking-form" action="https://formsubmit.co/bascoplumbingandheating@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="New Basco service request">
-      <input type="hidden" name="_next" value="https://bpaH-demoo.vercel.app/#booking">
+    <form class="booking-form reveal" id="booking-form">
       <div class="form-grid">
-        <div class="form-field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
-        <div class="form-field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="form-field"><label for="name">Full Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+        <div class="form-field"><label for="phone">Phone Number</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
         <div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-        <div class="form-field"><label for="service">Service needed</label><select id="service" name="service" required><option value="">Choose a service</option><option>Water heater</option><option>Boiler or heating</option><option>Drain cleaning</option><option>Plumbing repair</option><option>Emergency service</option></select></div>
-        <div class="form-field full"><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us what’s happening..." required></textarea></div>
+        <div class="form-field"><label for="service">Service Needed</label><select id="service" name="service" required><option value="">Choose a service</option><option>Water heater</option><option>Boiler or heating</option><option>Drain cleaning</option><option>Plumbing repair</option><option>Emergency service</option></select></div>
+        <div class="form-field full"><label for="address">Property/Service Address</label><input id="address" name="address" type="text" autocomplete="street-address" required></div>
+        <div class="form-field"><label for="date">Preferred Date</label><input id="date" name="date" type="date" required></div>
+        <div class="form-field"><label for="time">Preferred Time</label><input id="time" name="time" type="time" required></div>
+        <div class="form-field full"><label for="message">Description of the Problem</label><textarea id="message" name="message" placeholder="Tell us what’s happening..." required></textarea></div>
       </div>
       <button class="btn-primary form-submit" type="submit">Request Service</button>
-      <p class="form-success" id="form-success" role="status">Thanks. Your request is ready to send.</p>
+      <p class="form-success" id="form-success" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -672,10 +673,35 @@
     revealObserver.observe(item);
   });
 
-  document.querySelector('#booking-form').addEventListener('submit', (event) => {
-    const success = document.querySelector('#form-success');
-    success.classList.add('is-visible');
-    success.textContent = 'Thanks. Opening your email confirmation now.';
+  document.querySelector('#booking-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector('button[type="submit"]');
+    const status = document.querySelector('#form-success');
+    status.classList.remove('is-visible');
+    button.disabled = true;
+    button.textContent = 'Sending Request...';
+
+    try {
+      const response = await fetch('/api/send-service-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to send your request.');
+      status.classList.add('is-visible');
+      status.style.color = '';
+      status.textContent = "Request received! We'll contact you shortly to confirm your appointment.";
+      form.reset();
+    } catch (error) {
+      status.classList.add('is-visible');
+      status.style.color = 'var(--orange-deep)';
+      status.textContent = error.message || 'We could not send your request. Please call us directly.';
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Request Service';
+    }
   });
 
   document.querySelector('.logo[href="#top"]').addEventListener('click', (event) => {
