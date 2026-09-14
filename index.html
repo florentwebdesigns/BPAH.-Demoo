@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basco Plumbing & Heating | Springfield, NJ | 24/7 Emergency Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0E2A3D;
+    --navy-deep: #081C29;
+    --white: #FFFFFF;
+    --offwhite: #F6F8FA;
+    --orange: #E8752C;
+    --orange-deep: #C95F1E;
+    --green: #2E9E5B;
+    --slate: #4A5568;
+    --slate-light: #8895A7;
+    --line: #E7EAEE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--slate);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.15;
+    color: var(--navy);
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  .wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* NAV */
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--navy-deep);
+    z-index: 100;
+  }
+
+  nav.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 74px;
+  }
+
+  .logo {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .logo-mark { width: 24px; height: 24px; flex-shrink: 0; }
+
+  .nav-badges {
+    display: flex;
+    gap: 10px;
+  }
+
+  .nav-badge {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    background: var(--orange);
+    color: var(--white);
+    padding: 11px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { background: var(--orange-deep); }
+
+  @media (max-width: 860px) { .nav-badges { display: none; } }
+
+  /* HERO (video/image background style) */
+  .hero {
+    position: relative;
+    min-height: 640px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--navy-deep);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(180deg, rgba(8,28,41,0.55) 0%, rgba(8,28,41,0.85) 100%), url('https://images.unsplash.com/photo-1607472829322-4e9e0a2b9c1a?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    animation: slowzoom 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes slowzoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 100px 0 80px;
+    color: var(--white);
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .hero-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+  .hero h1 {
+    color: var(--white);
+    font-size: 3rem;
+    font-weight: 800;
+    max-width: 14ch;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 .accent { color: var(--orange); }
+
+  .hero p.lede {
+    margin-top: 20px;
+    font-size: 1.12rem;
+    color: rgba(255,255,255,0.82);
+    max-width: 48ch;
+  }
+
+  .hero-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    padding: 15px 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+
+  .btn-primary:hover { background: var(--orange-deep); }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    padding: 15px 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+
+  .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+  @media (max-width: 780px) {
+    .hero h1 { font-size: 2.1rem; }
+    .hero-content { padding: 80px 0 56px; }
+  }
+
+  /* TRUST STRIP */
+  .trust {
+    background: var(--navy);
+    color: var(--white);
+    padding: 34px 0;
+  }
+
+  .trust .wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .trust-item { flex: 1; min-width: 160px; text-align: center; }
+
+  .trust-item .num {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--orange);
+  }
+
+  .trust-item .label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 2px;
+  }
+
+  /* SERVICES */
+  .services { padding: 90px 0; background: var(--offwhite); }
+
+  .section-head { max-width: 56ch; margin-bottom: 46px; }
+
+  .section-head .kicker {
+    color: var(--orange-deep);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .section-head h2 { font-size: 1.9rem; font-weight: 800; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px;
+    border-top: 3px solid var(--orange);
+  }
+
+  .service-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .service-card p { font-size: 0.9rem; color: var(--slate); }
+
+  @media (max-width: 860px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* ABOUT / FAMILY */
+  .about { padding: 90px 0; }
+
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .about-stats {
+    background: var(--offwhite);
+    border-radius: 12px;
+    padding: 30px;
+  }
+
+  .about-stats .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .about-stats .row:last-child { border-bottom: none; }
+
+  .about-stats .row-value {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  @media (max-width: 860px) { .about .wrap { grid-template-columns: 1fr; } }
+
+  /* REVIEWS */
+  .reviews { background: var(--navy); color: var(--white); padding: 90px 0; }
+
+  .reviews .section-head h2 { color: var(--white); }
+  .reviews .section-head .kicker { color: var(--orange); }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 26px;
+  }
+
+  .review-stars { color: var(--orange); font-size: 0.95rem; margin-bottom: 12px; }
+
+  .review-card p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+  }
+
+  .review-card cite {
+    display: block;
+    margin-top: 16px;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  @media (max-width: 860px) { .review-grid { grid-template-columns: 1fr; } }
+
+  /* CTA */
+  .cta-band { background: var(--orange); padding: 64px 0; }
+
+  .cta-band .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .cta-band h2 { font-size: 1.6rem; color: var(--white); max-width: 22ch; }
+
+  .btn-dark {
+    background: var(--navy-deep);
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 6px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .btn-dark:hover { background: #000; }
+
+  /* FOOTER */
+  footer { background: var(--navy-deep); color: rgba(255,255,255,0.55); padding: 46px 0 30px; font-size: 0.87rem; }
+
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  footer .logo { color: var(--white); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C12 2 6 9 6 14a6 6 0 0 0 12 0c0-5-6-12-6-12z" fill="#E8752C"/>
+      </svg>
+      Basco Plumbing & Heating
+    </div>
+    <div class="nav-badges">
+      <span class="nav-badge">📍 Springfield, NJ</span>
+      <span class="nav-badge">🕐 24/7 Emergency</span>
+    </div>
+    <a href="tel:19739646833" class="nav-cta">(973) 964-6833</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-content">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      Family-Owned Since 2005 — Serving Union County
+    </div>
+    <h1>Plumbing &amp; Heating you can <span class="accent">actually trust.</span></h1>
+    <p class="lede">Basco Plumbing & Heating has served Springfield and the surrounding area for over 20 years — honest pricing, licensed expertise, and real people who answer the phone.</p>
+    <div class="hero-actions">
+      <a href="tel:19739646833" class="btn-primary">Call (973) 964-6833</a>
+      <a href="#contact" class="btn-secondary">Request Service</a>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-item">
+      <div class="num">20+ Years</div>
+      <div class="label">Serving Springfield & Union County</div>
+    </div>
+    <div class="trust-item">
+      <div class="num">5.0 ★</div>
+      <div class="label">Rated across Yelp, Google & Birdeye</div>
+    </div>
+    <div class="trust-item">
+      <div class="num">24/7</div>
+      <div class="label">Emergency calls, answered by a real person</div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What We Do</span>
+      <h2>Plumbing and heating, handled by licensed professionals.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Water Heater Install & Repair</h3>
+        <p>Fast diagnosis and replacement — our specialty, done right the first time.</p>
+      </div>
+      <div class="service-card">
+        <h3>Boiler & Heating Systems</h3>
+        <p>Oil-to-gas conversions, steam-to-hot-water systems, and legacy boiler repair.</p>
+      </div>
+      <div class="service-card">
+        <h3>Drain Cleaning</h3>
+        <p>Clogged drains cleared quickly, without unnecessary upsells.</p>
+      </div>
+      <div class="service-card">
+        <h3>Plumbing Repair & Installation</h3>
+        <p>From leaky faucets to full bathroom installs, big or small jobs welcome.</p>
+      </div>
+      <div class="service-card">
+        <h3>Backflow Preventer Service</h3>
+        <p>Inspection and installation to keep your water supply safe and compliant.</p>
+      </div>
+      <div class="service-card">
+        <h3>24/7 Emergency Calls</h3>
+        <p>Leaks and heating failures don't wait for business hours — neither do we.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <div>
+      <span class="kicker" style="color:var(--orange-deep);font-weight:700;font-size:0.9rem;">Family Owned & Operated</span>
+      <h2 style="font-size:1.9rem;font-weight:800;margin-top:8px;">Two decades of honest work, right here in Springfield.</h2>
+      <p style="margin-top:16px;font-size:1rem;color:var(--slate);">Basco Plumbing & Heating has been a trusted name in Union County since 2005. We're not a call center or a franchise — when you call, you get a real person who knows the job, shows up on time, and treats your home like it's their own.</p>
+    </div>
+    <div class="about-stats">
+      <div class="row"><span>Years in business</span><span class="row-value">20+</span></div>
+      <div class="row"><span>Service area</span><span class="row-value">Union County, NJ</span></div>
+      <div class="row"><span>Availability</span><span class="row-value">24/7 Emergency</span></div>
+      <div class="row"><span>Licensed & Insured</span><span class="row-value">Yes</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">What Neighbors Say</span>
+      <h2>Real reviews from real customers.</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>Reliable, skillful, and courteous every time we've called — the kind of plumber you can trust with your home's inner workings.</p>
+        <cite>— Homeowner, Union, NJ</cite>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>Our water heater was leaking — they assessed it, found a replacement, and had it fully installed in under 90 minutes. Incredibly impressive service.</p>
+        <cite>— Homeowner, Springfield Area</cite>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>Quick to respond, honest about pricing, and never tries to upsell you on things you don't need. Fixes the actual problem, fairly priced.</p>
+        <cite>— Homeowner, Maplewood/South Orange</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <h2>Got a plumbing or heating issue? Let's get it fixed.</h2>
+    <a href="tel:19739646833" class="btn-dark">Call (973) 964-6833</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo">Basco Plumbing & Heating LLC</div>
+      <div>36 Clinton Ave, Springfield, NJ 07081</div>
+    </div>
+    <div>
+      Family Owned Since 2005 &middot; Licensed & Insured &middot; &copy; 2026 Basco Plumbing & Heating
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
