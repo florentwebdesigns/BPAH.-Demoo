@@ -708,6 +708,13 @@
     event.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  document.querySelectorAll('a[href="#booking"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      document.querySelector('#booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 </script>
 
 </body>
