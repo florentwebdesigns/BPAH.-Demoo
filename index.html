@@ -30,6 +30,7 @@
     background: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   h1, h2, h3 {
@@ -436,18 +437,18 @@
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1; transform: none; } }
 </style>
 </head>
-<body>
+<body id="top">
 
 <header>
   <nav class="wrap">
-    <div class="logo" aria-label="Basco Plumbing and Heating">
+    <a href="#top" class="logo" aria-label="Back to top - Basco Plumbing and Heating">
       <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <rect width="32" height="32" rx="9" fill="#E8752C"/>
         <path d="M8 20.5h7.2a4.8 4.8 0 0 0 0-9.6H8v9.6Zm0-4.8h7.2a.0.0 0 0 0 0 0H8Zm9.7 4.8H24a4.8 4.8 0 0 0 0-9.6h-2.3" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
         <path d="M8 24h16" stroke="#58D6C6" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
       Basco Plumbing & Heating
-    </div>
+    </a>
     <div class="nav-badges">
       <span class="nav-badge">📍 Springfield, NJ</span>
       <span class="nav-badge">🕐 24/7 Emergency</span>
