@@ -125,23 +125,30 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(115deg, rgba(8,28,41,0.94) 5%, rgba(8,28,41,0.68) 45%, rgba(232,117,44,0.24) 100%), url('https://images.unsplash.com/photo-1607472829322-4e9e0a2b9c1a?auto=format&fit=crop&w=2000&q=85');
+    background-image: linear-gradient(115deg, rgba(8,28,41,0.88) 4%, rgba(8,28,41,0.52) 48%, rgba(8,28,41,0.18) 100%), url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2400&q=88');
     background-size: cover;
     background-position: center;
-    animation: slowzoom 22s ease-in-out infinite alternate;
+    animation: scenicDrift 24s ease-in-out infinite alternate;
   }
 
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 78% 25%, rgba(88,214,198,0.22), transparent 32%), linear-gradient(0deg, rgba(8,28,41,0.42), transparent 46%);
+    background: radial-gradient(ellipse at 76% 18%, rgba(88,214,198,0.3), transparent 30%), radial-gradient(ellipse at 92% 92%, rgba(232,117,44,0.28), transparent 34%), linear-gradient(0deg, rgba(8,28,41,0.68), transparent 58%);
+    background-size: 120% 120%, 140% 140%, 100% 100%;
+    animation: lightShift 14s ease-in-out infinite alternate;
     pointer-events: none;
   }
 
-  @keyframes slowzoom {
-    from { transform: scale(1); }
-    to { transform: scale(1.08); }
+  @keyframes scenicDrift {
+    from { transform: scale(1.02) translate3d(0, 0, 0); }
+    to { transform: scale(1.1) translate3d(-1%, -1%, 0); }
+  }
+
+  @keyframes lightShift {
+    from { background-position: 0% 0%, 100% 100%, 0 0; }
+    to { background-position: 100% 30%, 0% 70%, 0 0; }
   }
 
   .hero-content {
