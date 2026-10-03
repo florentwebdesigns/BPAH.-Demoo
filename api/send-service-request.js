@@ -4,7 +4,50 @@ function clean(value) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-module.exports = async function handler(request, response) {
+function buildBusinessMessage(requestData) {
+  return [
+    'NEW SERVICE REQUEST',
+    '',
+    `Name: ${requestData.name}`,
+    `Phone: ${requestData.phone}`,
+    `Email: ${requestData.email}`,
+    `Service: ${requestData.service}`,
+    `Address: ${requestData.address}`,
+    `Preferred Date: ${requestData.date}`,
+    `Preferred Time: ${requestData.time}`,
+    `Problem: ${requestData.message}`
+  ].join('\n');
+}
+
+function buildCustomerMessage(name) {
+  return `Hi ${name}, thanks for contacting Basco Plumbing & Heating. We received your request and a team member will contact you shortly.`;
+}
+
+async function sendTwilioMessage({ accountSid, authToken, to, from, body }) {
+  const twilioBody = new URLSearchParams({
+    To: to,
+    From: from,
+    Body: body
+  });
+
+  const twilioResponse = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(accountSid)}/Messages.json`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${accountSid}:${authToken}`).toString('base64')}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: twilioBody
+  });
+
+  if (!twilioResponse.ok) {
+    const errorText = await twilioResponse.text().catch(() => '');
+    throw new Error(`Twilio rejected the SMS request: ${twilioResponse.status} ${errorText}`);
+  }
+
+  return twilioResponse;
+}
+
+async function handler(request, response) {
   if (request.method !== 'POST') {
     response.setHeader('Allow', 'POST');
     return response.status(405).json({ error: 'Method not allowed.' });
@@ -32,43 +75,34 @@ module.exports = async function handler(request, response) {
     return response.status(500).json({ error: 'Service requests are temporarily unavailable. Please call us directly.' });
   }
 
-  const message = [
-    'NEW SERVICE REQUEST',
-    '',
-    `Name: ${requestData.name}`,
-    `Phone: ${requestData.phone}`,
-    `Email: ${requestData.email}`,
-    `Service: ${requestData.service}`,
-    `Address: ${requestData.address}`,
-    `Preferred Date: ${requestData.date}`,
-    `Preferred Time: ${requestData.time}`,
-    `Problem: ${requestData.message}`
-  ].join('\n');
-
-  const twilioBody = new URLSearchParams({
-    To: businessPhoneNumber,
-    From: twilioPhoneNumber,
-    Body: message
-  });
+  const customerMessage = buildCustomerMessage(requestData.name);
+  const businessMessage = buildBusinessMessage(requestData);
 
   try {
-    const twilioResponse = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(accountSid)}/Messages.json`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${Buffer.from(`${accountSid}:${authToken}`).toString('base64')}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: twilioBody
+    await sendTwilioMessage({
+      accountSid,
+      authToken,
+      to: businessPhoneNumber,
+      from: twilioPhoneNumber,
+      body: businessMessage
     });
 
-    if (!twilioResponse.ok) {
-      console.error('Twilio rejected the SMS request:', twilioResponse.status);
-      return response.status(502).json({ error: 'We could not send your request. Please call us directly.' });
-    }
+    await sendTwilioMessage({
+      accountSid,
+      authToken,
+      to: requestData.phone,
+      from: twilioPhoneNumber,
+      body: customerMessage
+    });
 
     return response.status(200).json({ ok: true });
   } catch (error) {
     console.error('SMS request failed:', error);
     return response.status(502).json({ error: 'We could not send your request. Please call us directly.' });
   }
-};
+}
+
+module.exports = handler;
+module.exports.buildBusinessMessage = buildBusinessMessage;
+module.exports.buildCustomerMessage = buildCustomerMessage;
+module.exports.sendTwilioMessage = sendTwilioMessage;
