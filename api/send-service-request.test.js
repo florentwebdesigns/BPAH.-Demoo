@@ -7,11 +7,8 @@ test('buildBusinessMessage includes customer lead details', () => {
   const message = buildBusinessMessage({
     name: 'John Doe',
     phone: '+19731234567',
-    email: 'john@example.com',
     service: 'Water heater',
     address: '123 Main St',
-    date: '2026-10-10',
-    time: '09:00',
     message: 'The unit is leaking.'
   });
 
@@ -19,6 +16,9 @@ test('buildBusinessMessage includes customer lead details', () => {
   assert.match(message, /John Doe/);
   assert.match(message, /\+19731234567/);
   assert.match(message, /The unit is leaking\./);
+  assert.doesNotMatch(message, /Email:/i);
+  assert.doesNotMatch(message, /Preferred Date/i);
+  assert.doesNotMatch(message, /Preferred Time/i);
 });
 
 test('buildCustomerMessage confirms the request was received', () => {

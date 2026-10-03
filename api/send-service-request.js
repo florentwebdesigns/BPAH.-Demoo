@@ -1,4 +1,4 @@
-const requiredFields = ['name', 'phone', 'email', 'service', 'address', 'date', 'time', 'message'];
+const requiredFields = ['name', 'phone', 'service', 'address', 'message'];
 
 function clean(value) {
   return typeof value === 'string' ? value.trim() : '';
@@ -10,11 +10,8 @@ function buildBusinessMessage(requestData) {
     '',
     `Name: ${requestData.name}`,
     `Phone: ${requestData.phone}`,
-    `Email: ${requestData.email}`,
     `Service: ${requestData.service}`,
     `Address: ${requestData.address}`,
-    `Preferred Date: ${requestData.date}`,
-    `Preferred Time: ${requestData.time}`,
     `Problem: ${requestData.message}`
   ].join('\n');
 }
@@ -59,10 +56,6 @@ async function handler(request, response) {
 
   if (missingField) {
     return response.status(400).json({ error: 'Please complete every field before submitting.' });
-  }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(requestData.email)) {
-    return response.status(400).json({ error: 'Please enter a valid email address.' });
   }
 
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
