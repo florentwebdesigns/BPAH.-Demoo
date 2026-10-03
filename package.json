@@ -1,0 +1,15 @@
+{
+  "name": "bpah-demo",
+  "version": "1.0.0",
+  "description": "Basco Plumbing & Heating website",
+  "private": true,
+  "scripts": {
+    "test": "node api/send-service-request.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
