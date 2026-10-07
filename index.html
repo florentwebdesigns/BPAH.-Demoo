@@ -730,7 +730,7 @@
         <div class="form-field full"><label for="address">Property/Service Address</label><input id="address" name="address" type="text" autocomplete="street-address" required></div>
         <div class="form-field full"><label for="message">Description of the Problem</label><textarea id="message" name="message" placeholder="Tell us what’s happening..." required></textarea></div>
       </div>
-      <button class="btn-primary form-submit" type="submit">Text Your Request</button>
+      <button class="btn-primary form-submit" type="submit">Book Now</button>
       <p class="form-success" id="form-success" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -812,12 +812,6 @@
   });
 
   document.querySelectorAll('a[href="#booking"]').forEach((link) => {
-    // Phones: Book buttons open a ready-to-send text. Desktop scrolls to the booking form.
-    if (isPhone) {
-      link.href = smsLink("Hi Basco, I found you on your website and I'd like to book a service. ");
-      link.addEventListener('click', () => logBooking({ source: link.textContent.trim() + ' button' }));
-      return;
-    }
     link.addEventListener('click', (event) => {
       event.preventDefault();
       document.querySelector('#booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
