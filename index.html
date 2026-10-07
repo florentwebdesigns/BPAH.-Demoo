@@ -774,6 +774,18 @@
   const smsLink = (body) => `sms:${BASCO_SMS}?&body=${encodeURIComponent(body)}`;
   const isPhone = window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches;
 
+  // Google Sheets booking log: paste the Apps Script web app URL (see docs/booking-log.gs).
+  // Every booking text started on the site is saved as a row. Leave empty ('') to turn logging off.
+  const BOOKING_LOG_URL = 'https://script.google.com/macros/s/AKfycbz_9P_-m9b-ukB_luTbIVceIHR6ch3UBLrh7qMSAPrCT7EodtxzgwtjI475oGE6CIw/exec';
+  const logBooking = (fields) => {
+    if (!BOOKING_LOG_URL) return;
+    try {
+      fetch(BOOKING_LOG_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: new URLSearchParams({
+        ...fields, device: isPhone ? 'Phone' : 'Computer', page: location.href
+      }) });
+    } catch (err) {}
+  };
+
   document.querySelector('#booking-form').addEventListener('submit', (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -788,6 +800,7 @@
       `Address: ${data.address}`,
       `Problem: ${data.message}`
     ].join('\n');
+    logBooking({ source: 'Booking form', ...data });
     window.location.href = smsLink(body);
     status.classList.add('is-visible');
     status.textContent = 'Your request is ready in your messages app. Just press send, or call (973) 964-6833.';
@@ -802,6 +815,7 @@
     // Phones: Book buttons open a ready-to-send text. Desktop scrolls to the booking form.
     if (isPhone) {
       link.href = smsLink("Hi Basco, I found you on your website and I'd like to book a service. ");
+      link.addEventListener('click', () => logBooking({ source: link.textContent.trim() + ' button' }));
       return;
     }
     link.addEventListener('click', (event) => {
