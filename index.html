@@ -315,6 +315,10 @@
       document.querySelector('#booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+    link.addEventListener('click', () => logBooking({ source: 'Call button' }));
+  });
 </script>
 
 </body>
