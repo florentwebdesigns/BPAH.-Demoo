@@ -139,6 +139,18 @@
     item.style.transitionDelay = `${Math.min(index * 45, 240)}ms`;
     revealObserver.observe(item);
   });
+
+  const BOOKING_LOG_URL = 'https://script.google.com/macros/s/AKfycbz_9P_-m9b-ukB_luTbIVceIHR6ch3UBLrh7qMSAPrCT7EodtxzgwtjI475oGE6CIw/exec';
+  const isPhone = window.matchMedia && matchMedia('(hover: none) and (pointer: coarse)').matches;
+  document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      try {
+        fetch(BOOKING_LOG_URL, { method: 'POST', mode: 'no-cors', keepalive: true, body: new URLSearchParams({
+          source: 'Call button', device: isPhone ? 'Phone' : 'Computer', page: location.href
+        }) });
+      } catch (err) {}
+    });
+  });
 </script>
 
 </body>
